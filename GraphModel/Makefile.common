@@ -1,0 +1,60 @@
+#
+#	Common makefile, powered by kirbyzhou
+#
+
+ifndef CC
+CC := gcc
+endif
+
+ifndef CXX
+CXX := g++
+endif
+
+AD_LIB_ROOT=$(AD_CODE_ROOT)/Library
+
+ifndef SEARCH_LIB_ROOT
+SEARCH_LIB_ROOT := /usr/local/lib
+endif
+
+ifndef SEARCH_BIN_ROOT
+SEARCH_BIN_ROOT := /usr/local/bin
+endif
+
+ifndef ACE_ROOT
+ACE_ROOT := /usr/local/ACE_5.5.1
+endif
+
+ifndef BOOST_ROOT
+BOOST_ROOT := /usr/local/boost_1_32_0/
+endif
+
+MAKEDEPEND = g++ -MM -MG $(CFLAGS)
+
+COMMONINCLUDE := -I$(ACE_ROOT) -I$(BOOST_ROOT) -I$(AD_CODE_ROOT) -I/usr/local/include/freetds
+
+COMMONLIBS := -L$(ACE_ROOT)/ace -L$(AD_CODE_ROOT)/Library
+
+SEARCHLIB_PATH := $(AD_CODE_ROOT)/Library
+
+COMMONLINKLIBS := 
+#-lACE
+
+#CFLAGS := -D_DEBUG -D_REENTRANT -D_THREAD_SAFE -DHAVE_CXX_STDHEADERS -DLINUX -D_FILE_OFFSET_BITS=64 -march=pentium4 -fPIC -ggdb -Wall
+
+CFLAGS :=  -D_DEBUG -D_REENTRANT -D_THREAD_SAFE -DHAVE_CXX_STDHEADERS -DLINUX -D_FILE_OFFSET_BITS=64 -march=nocona -fPIC -ggdb -Wall -fopenmp
+
+#CFLAGS :=  -D_DEBUG -D_REENTRANT -D_THREAD_SAFE -DHAVE_CXX_STDHEADERS -DLINUX -D_FILE_OFFSET_BITS=64 -march=nocona -fPIC -ggdb -Wall -fopenmp
+
+CXXFLAGS := $(CFLAGS)
+
+ifndef SKIPROOTCHECK
+ifeq (, $(findstring $(AD_CODE_ROOT), $(CURDIR))) 
+$(error Invalid AD_CODE_ROOT = $(AD_CODE_ROOT), CURDIR = $(CURDIR), You can use 'make SKIPROOTCHECK=yes' to avoid the checking.)
+endif
+endif
+
+ifeq ($(MAKELEVEL), 8)
+$(error Too deep levels)
+endif
+
+export AD_CODE_ROOT

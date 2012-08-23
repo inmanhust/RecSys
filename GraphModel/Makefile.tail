@@ -1,0 +1,37 @@
+
+LINKDEPEND = $(STATICLIB) 
+
+$(TARGET): .depend $(OBJ) $(LINKDEPEND)  
+	$(CXX) $(OBJ) $(LIB) $(CFLAGS) $(STATICLIB) -o $(TARGET)
+ifneq ($(TARGET),test.out)
+	install -D $(TARGET) $(AD_CODE_ROOT)/bin/$(shell basename $(TARGET))
+endif
+
+.cpp.o:
+	$(CXX) $(INCLUDE) $(CFLAGS) -c $< -o $@
+.cxx.o:
+	$(CXX) $(INCLUDE) $(CFLAGS) -c $< -o $@
+.cc.o:
+	$(CXX) $(INCLUDE) $(CFLAGS) -c $< -o $@
+.c.o:
+	$(CC) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+install:
+	install -m=u=wxr,g=wxr,o=rx -D $(TARGET) $(SEARCH_BIN_ROOT)/$(shell basename $(TARGET))
+
+.depend: $(foreach dir, $(DIR), $(wildcard $(dir)/CVS/Entries)) $(foreach dir, $(DIR), $(wildcard  $(dir)/*.h)) $(SRC)
+	$(MAKEDEPEND) $(INCLUDE) $(SRC) > .depend
+
+depend:
+	$(MAKEDEPEND) $(INCLUDE) $(SRC) > .depend
+
+print:
+	echo $(SRC)
+	echo $(OBJ)
+
+clean:
+	rm -f $(OBJ)
+	rm -f $(TARGET)
+	rm -f $(AD_CODE_ROOT)/bin/$(TARGET)
+	rm -f .depend
+

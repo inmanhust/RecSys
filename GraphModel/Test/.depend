@@ -1,0 +1,3 @@
+main.o: main.cpp \
+ /home/inman/ML_Project/MachineLearning/GraphCommon/CommonTools.h \
+ /home/inman/ML_Project/MachineLearning/SimRank/GraphInterface.h

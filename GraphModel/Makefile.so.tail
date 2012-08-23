@@ -1,0 +1,55 @@
+LINKDEPEND := $(LINKDEPEND) $(STATICLIB)
+
+ifdef TARGETSO
+$(TARGETSO): .depend $(OBJ) $(LINKDEPEND)
+	$(CC) -shared $(CFLAGS) $(LIB) $(OBJ) -o $(TARGETSO)
+	install -D $(TARGETSO) $(AD_LIB_ROOT)/$(shell basename $(TARGETSO))
+INSTALLSO = installso
+endif
+
+ifdef TARGETA
+$(TARGETA): .depend $(OBJ) $(LINKDEPEND)
+	ar -ru $(TARGETA) $(OBJ)
+	ranlib $(TARGETA)
+	install -D $(TARGETA) $(AD_LIB_ROOT)/$(shell basename $(TARGETA))
+INSTALLA = installa
+endif
+
+install: $(INSTALLSO) $(INSTALLA)
+
+installso: $(TARGETSO)
+	install -m=u=wxr,g=wxr,o=rx -D $(TARGETSO) $(SEARCH_LIB_ROOT)/$(shell basename $(TARGETSO))
+	/sbin/ldconfig
+
+installa: $(TARGETA)
+	install -m=u=wr,g=wr,o=rx -D $(TARGETA) $(SEARCH_LIB_ROOT)/$(shell basename $(TARGETA))
+
+.cpp.o:
+	$(CXX) $(INCLUDE) $(CFLAGS) -c $< -o $@
+.cxx.o:
+	$(CXX) $(INCLUDE) $(CFLAGS) -c $< -o $@
+.cc.o:
+	$(CXX) $(INCLUDE) $(CFLAGS) -c $< -o $@
+.c.o:
+	$(CC) $(INCLUDE) $(CFLAGS) -c $< -o $@
+
+.depend: $(foreach dir, $(DIR), $(wildcard $(dir)/CVS/Entries)) $(foreach dir, $(DIR), $(wildcard  $(dir)/*.h)) $(SRC)
+	$(MAKEDEPEND) $(INCLUDE) $(SRC) > .depend
+
+depend:
+	$(MAKEDEPEND) $(INCLUDE) $(SRC) > .depend
+
+print:
+	echo $(SRC)
+	echo $(OBJ)
+
+clean:
+	rm -f $(OBJ)
+	rm -f $(TARGETSO) $(TARGETA)
+ifdef TARGETSO
+	rm -f $(AD_LIB_ROOT)/$(TARGETSO)
+endif
+ifdef TARGETA
+	rm -f $(AD_LIB_ROOT)/$(TARGETA)
+endif
+	rm -f .depend
