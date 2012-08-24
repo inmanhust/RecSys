@@ -10,16 +10,6 @@ namespace GraphModel
 
     Vertex::~Vertex(){}
 
-    void Vertex::setID(uint32_t vid)
-    {
-        vid_ = vid;
-    }
-
-    uint32_t Vertex::getID() const
-    {
-        return vid_;
-    }
-
     void Vertex::addEdge(Edge * edge)
     {
         adj_edge_.insert(edge);
@@ -27,7 +17,7 @@ namespace GraphModel
 
     void Vertex::removeEdge(Edge * edge)
     {
-        set<Edge*, EdgeLess<Edge*> >::iterator iter = adj_edge_.find(edge);
+        set<Edge*, EdgeLess<Edge*> >::const_iterator iter = adj_edge_.find(edge);
         if(iter != adj_edge_.end())
         {
             adj_edge_.erase(iter);
@@ -44,7 +34,7 @@ namespace GraphModel
         for(set<Edge*, EdgeLess<Edge*> >::iterator iter=adj_edge_.begin();iter!=adj_edge_.end();iter++)
         {
             Edge * edge = *iter;
-            T_VERTEX_TYPE v = edge->getAdjVertex(vertex->getID());
+            VERTEX_TYPE_T v = edge->getAdjVertex(vertex->vid_);
             if(v!=0 && v==vid_)
                 return true;
         }
@@ -53,11 +43,11 @@ namespace GraphModel
 
     bool Vertex::operator==(const Vertex& vertex) const
     {
-        return vertex.getID() == vid_;
+        return vertex.vid_ == vid_;
     }
 
-    void Vertex::print()
+    void Vertex::printVertexInfo() const
     {
-        fprintf(stderr,"[Vertex Info][ID:\t%u,degree:\t%u]\n",vid_,(uint32_t)adj_edge_.size());
+        fprintf(stderr,"[Vertex Info][ID:\t%u,degree:\t%u]\n", vid_, adj_edge_.size());
     }
 }

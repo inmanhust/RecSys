@@ -11,7 +11,7 @@ namespace GraphModel
 
     bool Graph::isVertexExist(Vertex * vertex) const
     {
-        map<uint32_t, Vertex *>::const_iterator iter = vertex_map_.find(vertex->getID());
+        map<uint32_t, Vertex *>::const_iterator iter = vertex_map_.find(vertex->vid_);
         if(iter == vertex_map_.end())
             return true;
         else
@@ -20,6 +20,7 @@ namespace GraphModel
 
     bool Graph::addEdge(Vertex * f_vertex, Vertex * t_vertex)
     {
+/*
         if(*f_vertex == *t_vertex)
         {
             fprintf(stderr, "[Info][same vertex, vertex id:\t%u]\n", f_vertex->getID());
@@ -46,14 +47,13 @@ namespace GraphModel
        f_vertex->addEdge(edge);
        t_vertex->addEdge(edge);
        edge_set_.insert(edge);
-
+*/
        return true;
-
     }
 
 
 
-    bool Graph::addEdge(uint32_t f_vertex_id, uint32_t t_vertex_id)
+    bool Graph::addEdge(VERTEX_TYPE_T f_vertex_id, VERTEX_TYPE_T t_vertex_id)
     {
         if(f_vertex_id == t_vertex_id)
         {
@@ -91,7 +91,7 @@ namespace GraphModel
             return false;
         }
 
-       Edge * edge = new Edge(f_vertex->getID(), t_vertex->getID());
+       Edge * edge = new Edge(f_vertex->vid_, t_vertex->vid_);
        f_vertex->addEdge(edge);
        t_vertex->addEdge(edge);
        edge_set_.insert(edge);
@@ -126,14 +126,24 @@ namespace GraphModel
         return true;
     }
 
-    void Graph::print() const
+    void Graph::printGraphInfo() const
     {
         cout << "Total Node Num:\t" << vertex_map_.size() << endl;
         cout << "Total Edge Num:\t" << edge_set_.size() << endl;
+        return;
+        cout << "Vertex are as follows:" << endl;
+        map<VERTEX_TYPE_T, Vertex*>::const_iterator map_iter = vertex_map_.begin();
+        while(map_iter != vertex_map_.end())
+        {
+            cout << "vertex id: " << map_iter->first << endl;
+            map_iter ++;
+        }
+
+        cout << "Edge are as follows:"<< endl;
         set<Edge*, EdgeLess<Edge*> >::iterator iter = edge_set_.begin();       
         while(iter != edge_set_.end())
         {
-            cout << (*iter)->getFrontVertexID() << "\t" << (*iter)->getTailVertexID() << endl;
+            cout << (*iter)->front_vertex_id_ << "\t" << (*iter)->tail_vertex_id_ << endl;
             iter++;
         }
     }

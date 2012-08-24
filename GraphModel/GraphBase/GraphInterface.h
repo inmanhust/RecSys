@@ -13,43 +13,34 @@ using std::map;
 
 namespace GraphModel
 {
-    typedef uint32_t T_VERTEX_TYPE;
+    typedef uint32_t VERTEX_TYPE_T;
 
     class Edge
     {
-        public:
-            Edge();
-            Edge(T_VERTEX_TYPE front_vertex_id, T_VERTEX_TYPE tail_vertex_id);
-            ~Edge();
+    public:
+        Edge();
+        Edge(VERTEX_TYPE_T front_vertex_id, VERTEX_TYPE_T tail_vertex_id);
+        ~Edge();
 
-        public:
-            void setFrontVertexID(T_VERTEX_TYPE vertex_id);
-            T_VERTEX_TYPE getFrontVertexID() const;
+    public:
+        VERTEX_TYPE_T getAdjVertex(VERTEX_TYPE_T vertex_id) const;
+        bool operator==(const Edge& edge) const;
+        void printEdgeInfo() const;
+        bool isSameEdge(const Edge& edge) const;
+        uint32_t getEdgeUniqID() const;
 
-            void setTailVertexID(T_VERTEX_TYPE vertex_id);
-            T_VERTEX_TYPE getTailVertexID() const;
-
-            void setWeight(double weight);
-            double getWeight();
-    
-            T_VERTEX_TYPE getAdjVertex(T_VERTEX_TYPE vertex_id);
-
-            bool operator==(const Edge& edge) const;
-
-            void print();
-
-        private:
-            T_VERTEX_TYPE front_vertex_id_;
-            T_VERTEX_TYPE tail_vertex_id_;
-            double weight_;
+    public:
+        VERTEX_TYPE_T front_vertex_id_;
+        VERTEX_TYPE_T tail_vertex_id_;
+        double weight_;
     };
 
     struct EdgeHash
     {
         size_t operator()(const Edge& edge) const
         {
-            uint32_t fvid = edge.getFrontVertexID();
-            uint32_t tvid = edge.getTailVertexID();
+            uint32_t fvid = edge.front_vertex_id_;
+            uint32_t tvid = edge.tail_vertex_id_;
 
             return fvid*fvid + fvid*tvid + tvid*tvid;
         }
@@ -59,11 +50,9 @@ namespace GraphModel
     {
         bool operator()(const Edge& edge1,const Edge& edge2) const
         {
-            bool ret = true;
-            ret = ret & (edge1.getFrontVertexID()==edge2.getFrontVertexID());
-            ret = ret & (edge1.getTailVertexID()==edge2.getTailVertexID());
-
-            return ret;
+            if(edge1.isSameEdge(edge2))
+                return true;
+            return false;
         }
     };
 
@@ -72,8 +61,8 @@ namespace GraphModel
     {
         bool operator()(const EdgeType& edge1, const EdgeType& edge2) const
         {
-            uint32_t sum1 = edge1->getFrontVertexID()*edge1->getFrontVertexID() + edge1->getFrontVertexID()*edge1->getTailVertexID() + edge1->getTailVertexID()*edge1->getTailVertexID();
-            uint32_t sum2 = edge2->getFrontVertexID()*edge2->getFrontVertexID() + edge2->getFrontVertexID()*edge2->getTailVertexID() + edge2->getTailVertexID()*edge2->getTailVertexID();
+            uint32_t sum1 = edge1->getEdgeUniqID();
+            uint32_t sum2 = edge2->getEdgeUniqID();
 
             return sum1>sum2;
         }
@@ -87,8 +76,6 @@ namespace GraphModel
             ~Vertex();
 
         public:
-            void setID(uint32_t vid);
-            uint32_t getID() const;
             void addEdge(Edge * edge);
             void removeEdge(Edge * edge);
             uint32_t getDegree() const;
@@ -96,8 +83,8 @@ namespace GraphModel
 
             bool operator==(const Vertex& vertex) const;
 
-            void print();
-        private:
+            void printVertexInfo() const;
+        public:
             uint32_t vid_;
             set<Edge*, EdgeLess<Edge*> > adj_edge_;
     };
@@ -111,11 +98,11 @@ namespace GraphModel
         public:
             bool isVertexExist(Vertex * vertex) const;
             bool addEdge(Vertex * f_vertex, Vertex * t_vertex);
-            bool addEdge(uint32_t f_vertex_id, uint32_t t_vertex_id);
+            bool addEdge(VERTEX_TYPE_T f_vertex_id, VERTEX_TYPE_T t_vertex_id);
             bool readGraph(const char * filepath);
-            void print() const;
-        private:
-            map<uint32_t, Vertex*> vertex_map_;
+            void printGraphInfo() const;
+        public:
+            map<VERTEX_TYPE_T, Vertex*> vertex_map_;
             set<Edge*, EdgeLess<Edge*> > edge_set_;       
     };
 

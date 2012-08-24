@@ -1,1 +1,1 @@
-CommonTools.o: CommonTools.cpp CommonTools.h
+CommonTools.o: ./CommonTools.cpp ./CommonTools.h

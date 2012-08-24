@@ -21,7 +21,7 @@ using std::string;
 
 /**
  * 64bit md5 encryption
- * @param    input    [in]    input string
+ * @param    char*    [in]    input string
  * @return
  *        64bit md5 value
  **/
@@ -37,6 +37,12 @@ uint64_t get_md5_64(const char * input);
  **/
 void split_string(string& str, char separator, vector<string> * result);
 
+/**
+ * left trim function
+ * @param char * [in] input string
+ * @return 
+ *	char * 	left trim result string
+ **/
 char * ltrim(char * str);
 
 char * rtrim(char * str);

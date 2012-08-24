@@ -1,4 +1,5 @@
-Edge.o: Edge.cpp GraphInterface.h
-Graph.o: Graph.cpp GraphInterface.h \
- /home/inman/ML_Project/MachineLearning/GraphCommon/CommonTools.h
-Vertex.o: Vertex.cpp GraphInterface.h
+Edge.o: ./Edge.cpp ./GraphInterface.h
+Graph.o: ./Graph.cpp ./GraphInterface.h \
+  /home/caijiantao/personal_code/GraphModel/GraphCommon/CommonTools.h
+SimRank.o: ./SimRank.cpp ./SimRank.h ./GraphInterface.h
+Vertex.o: ./Vertex.cpp ./GraphInterface.h

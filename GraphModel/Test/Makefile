@@ -7,9 +7,9 @@ DIR = .
 INCLUDE = $(COMMONINCLUDE) -I.
 
 
-LIB = $(COMMONLIBS) $(COMMONLINKLIBS) -lsimrank -lgraphcommon -lcrypto
+LIB = $(COMMONLIBS) $(COMMONLINKLIBS) -lgraphcommon -lgraphbase -lcrypto
 
-#CFLAGS += -O2
+CFLAGS += -O2
 
 TARGET = run_graph
 
