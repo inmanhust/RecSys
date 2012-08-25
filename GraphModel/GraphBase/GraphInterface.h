@@ -48,15 +48,15 @@ namespace GraphModel
 
     struct EdgeEqual
     {
-        bool operator()(const Edge& edge1,const Edge& edge2) const
+        bool operator()(const Edge* edge1,const Edge* edge2) const
         {
-            if(edge1.isSameEdge(edge2))
+            if(edge1->isSameEdge(*edge2))
                 return true;
             return false;
         }
     };
 
-    template<class EdgeType>
+    template <class EdgeType>
     struct EdgeLess
     {
         bool operator()(const EdgeType& edge1, const EdgeType& edge2) const

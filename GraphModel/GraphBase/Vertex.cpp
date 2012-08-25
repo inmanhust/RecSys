@@ -29,11 +29,12 @@ namespace GraphModel
         return adj_edge_.size();
     }
 
+    // this function can be optimazed
     bool Vertex::isAdjVertex(Vertex * vertex) const
     {
-        for(set<Edge*, EdgeLess<Edge*> >::iterator iter=adj_edge_.begin();iter!=adj_edge_.end();iter++)
+        for(set<Edge*, EdgeLess<Edge*> >::const_iterator iter=adj_edge_.begin();iter!=adj_edge_.end();iter++)
         {
-            Edge * edge = *iter;
+            const Edge * edge = *iter;
             VERTEX_TYPE_T v = edge->getAdjVertex(vertex->vid_);
             if(v!=0 && v==vid_)
                 return true;

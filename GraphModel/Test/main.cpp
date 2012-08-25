@@ -8,7 +8,7 @@ int main()
     cout << "run ---->" << endl;
     Graph graph;
     graph.readGraph("data/g_data.txt");
-    //graph.printGraphInfo();
+    graph.printGraphInfo();
 
     sleep(100);
     return 0;

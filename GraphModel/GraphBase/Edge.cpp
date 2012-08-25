@@ -22,11 +22,12 @@ namespace GraphModel
 
     bool Edge::isSameEdge(const Edge& edge) const
     {
-
-        if ((edge.front_vertex_id_ == front_vertex_id_ && edge.tail_vertex_id_ == tail_vertex_id_) || 
-            (edge.front_vertex_id_ == tail_vertex_id_ && edge.tail_vertex_id_ == front_vertex_id_))
-            return true;
-        return false;
+        if (edge.front_vertex_id_ == front_vertex_id_)
+            return edge.tail_vertex_id_ == tail_vertex_id_;
+        else if (edge.front_vertex_id_ == tail_vertex_id_)
+            return edge.tail_vertex_id_ == front_vertex_id_;
+        else
+            return false;
     }
 
     bool Edge::operator==(const Edge& edge) const

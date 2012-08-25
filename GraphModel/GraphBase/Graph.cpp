@@ -91,12 +91,12 @@ namespace GraphModel
             return false;
         }
 
-       Edge * edge = new Edge(f_vertex->vid_, t_vertex->vid_);
-       f_vertex->addEdge(edge);
-       t_vertex->addEdge(edge);
-       edge_set_.insert(edge);
+        Edge * edge = new Edge(f_vertex->vid_, t_vertex->vid_);
+        f_vertex->addEdge(edge);
+        t_vertex->addEdge(edge);
+        edge_set_.insert(edge);
 
-       return true;
+        return true;
     }
 
     bool Graph::readGraph(const char * filepath)
