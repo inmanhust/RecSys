@@ -14,8 +14,9 @@ namespace CommunityDetection
     public:
         void initCommunitPool();
         bool addVertexToCommunity(const Vertex * vertex);
-        bool removeVertexFrom Community(const Vertex * vertex);
+        bool removeVertexFromCommunity(const Vertex * vertex);
         uint32_t getNeighborCommunities(const Vertex * vertex, set<Community*>& neighbors);
+        Community * getCommunity(uint32_t vertex_id) const;
         double getModularity();
    
 

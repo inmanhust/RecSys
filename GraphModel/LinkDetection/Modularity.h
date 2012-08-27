@@ -5,7 +5,7 @@ namespace CommunityDetection
 {
     class Modularity
     {
-    public static double getQualityScore(const Graph * graph, set<Community*> communities);
+    public static double getQualityScore(const Graph * graph, set<Community*> communities, double gamma) const;
     };
 }
 
