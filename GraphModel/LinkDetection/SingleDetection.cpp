@@ -15,6 +15,7 @@ namespace CommunityDetection
         pool = new CommunityPool(graph_);
     }
 
+/*
     uint32_t SingleDetection::findCommunities(set<Community>& communities)
     {
         pool->initCommunityPool();
@@ -90,4 +91,5 @@ namespace CommunityDetection
 
         return communities.size();
     }
+*/
 }

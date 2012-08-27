@@ -1,22 +1,23 @@
 #ifndef __COMMUNITY__POOL__
 #define __COMMUNITY__POOL__
 #include "Community.h"
+#include "Modularity.h"
 
 namespace CommunityDetection
 {
-   typedef map<uint32_t, Community * community> CommunityIndex;
+   typedef map<uint32_t, Community*> CommunityIndex;
 
     class CommunityPool
     {
     public:
-        CommunityPool(const Graph * graph);
+        CommunityPool(Graph * graph);
 
     public:
-        void initCommunitPool();
-        bool addVertexToCommunity(const Vertex * vertex);
-        bool removeVertexFromCommunity(const Vertex * vertex);
-        uint32_t getNeighborCommunities(const Vertex * vertex, set<Community*>& neighbors);
-        Community * getCommunity(uint32_t vertex_id) const;
+        void initCommunityPool();
+        bool addVertexToCommunity(Vertex * vertex, Community * community);
+        bool removeVertexFromCommunity(Vertex * vertex,  Community * community);
+ //       uint32_t getNeighborCommunities(const Vertex * vertex, set<Community*>& neighbors);
+        Community * getCommunity(uint32_t vertex_id);
         double getModularity();
    
 

@@ -1,16 +1,17 @@
 #include "CommunityPool.h"
 #include "Modularity.h"
 
+using std::pair;
 namespace CommunityDetection
 {
-    CommunityPool::CommunityPool(const Graph * graph)graph_(graph)
+    CommunityPool::CommunityPool(Graph * graph):graph_(graph)
     {
 
     }
 
     void CommunityPool::initCommunityPool()
     {
-        const map<VERTEX_TYPE_T, Vertex*>& vertexs = graph_.vertex_map_;
+        const map<VERTEX_TYPE_T, Vertex*>& vertexs = graph_->vertex_map_;
         map<uint32_t, Vertex*>::const_iterator itr = vertexs.begin();
         while (itr != vertexs.end())
         {
@@ -21,7 +22,7 @@ namespace CommunityDetection
         }
     }
 
-    bool CommunityPool::addVertexToCommunity(const Vertex * vertex, Community * community)
+    bool CommunityPool::addVertexToCommunity(Vertex * vertex, Community * community)
     {
         CommunityIndex::iterator itr = vertex_community_map_.find(vertex->vid_);
         if(itr != vertex_community_map_.end())
@@ -39,7 +40,7 @@ namespace CommunityDetection
         return true;
     }
 
-    bool CommunityPool::removeVertexFromCommunity(const Vertex * vertex, Community * community)
+    bool CommunityPool::removeVertexFromCommunity(Vertex * vertex, Community * community)
     {
         CommunityIndex::iterator itr = vertex_community_map_.find(vertex->vid_);
         
@@ -57,6 +58,7 @@ namespace CommunityDetection
         }
     }
 
+/*
     uint32_t getNeighborCommunities(const Vertex * vertex, set<Community*>& neighbors) const
     {
         neighbors.clear();
@@ -81,10 +83,16 @@ namespace CommunityDetection
 
         return neighbors.size();
     }
+*/
+    Community * CommunityPool::getCommunity(uint32_t vertex_id)
+    {
+        return vertex_community_map_[vertex_id];
+    }
 
     double CommunityPool::getModularity()
     {
-        set<Community*> communities;
+        map<uint32_t, Community*> communities;
+        /*
         CommunityIndex::iterator itr = vertex_community_map_.begin();
         while (itr != vertex_community_map_.end())
         {
@@ -92,9 +100,8 @@ namespace CommunityDetection
             communities.insert(community);
             itr ++;
         }
-
-        Modularity mod;
-        double modularity = mod.getQualityScore(communities);
+        */
+        double modularity = Modularity::getQualityScore(graph_, communities,  1.0);
         
         return modularity;
     }

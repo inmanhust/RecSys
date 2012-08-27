@@ -68,6 +68,15 @@ namespace GraphModel
         }
     };
 
+    template <class Type>
+    struct VertexLess
+    {
+        bool operator()(const Type& vertex1, const Type& vertex2) const
+        {
+            return vertex1->vid_ > vertex2->vid_;
+        }
+    };
+
     class Vertex
     {
         public:
