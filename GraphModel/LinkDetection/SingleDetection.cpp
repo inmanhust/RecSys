@@ -11,28 +11,33 @@ namespace CommunityDetection
     {
         graph_ = graph;
         gamma_ = gamma;
+        delta_ = 0.00000001;
         iterations_ = iterations;
         pool = new CommunityPool(graph_);
     }
 
-/*
-    uint32_t SingleDetection::findCommunities(set<Community>& communities)
+
+    uint32_t SingleDetection::findCommunities(map<uint32_t, Community*>& communities)
     {
         pool->initCommunityPool();
+        //pool->printPool();
 
-        uint32_t edge_num = graph_.edge_set_.size();
+        uint32_t edge_num = graph_->edge_set_.size();
         map<Community*, double> comm_stat_map;
-        double old_modularity = pool.getModularity();
+        double old_modularity = pool->getModularity();
+        //printf("modularity: %f\n", old_modularity);
         for (uint32_t idx=0; idx<iterations_; idx++)
         {
-            const map<uint32_t, Vertex*>& vertexs = graph_.vertex_map_;
+            printf("[Info][iteration: %u ]\n",idx);          
+
+            map<uint32_t, Vertex*>& vertexs = graph_->vertex_map_;
             map<uint32_t, Vertex*>::iterator itr = vertexs.begin();
             while (itr != vertexs.end())
             {
-                Vertex * v =  iter->second;
+                Vertex * v =  itr->second;
                 double degree = v->getDegree();
-                Community * ori_comm = pool.getCommunity(v->vid_);
-                pool.removeVertexFromCommunity(v, ori_comm);
+                Community * ori_comm = pool->getCommunity(v->vid_);
+                pool->removeVertexFromCommunity(v, ori_comm);
                 
                 Community * best_comm = ori_comm;
                 double best_increase = 0.0;
@@ -40,11 +45,11 @@ namespace CommunityDetection
                 comm_stat_map.clear();
 
                 set<Edge*>::iterator edge_itr = (v->adj_edge_).begin();
-                while(edge_itr != v->(adj_edge_).end())
+                while(edge_itr != (v->adj_edge_).end())
                 {
                     Edge * edge = *edge_itr;
-                    uint32_t vid = edge->getAdjVertex(v->vid);
-                    Community * adj_comm = pool.getCommunity(vid);
+                    uint32_t vid = edge->getAdjVertex(v->vid_);
+                    Community * adj_comm = pool->getCommunity(vid);
                    
                     if (comm_stat_map.find(adj_comm) != comm_stat_map.end()) 
                     {
@@ -54,6 +59,8 @@ namespace CommunityDetection
                     {
                         comm_stat_map[adj_comm] = 1.0;
                     }
+
+                    edge_itr ++;
                 }
 
                 map<Community*, double>::iterator adj_com_itr = comm_stat_map.begin();
@@ -62,22 +69,25 @@ namespace CommunityDetection
                     double mc = adj_com_itr->second;
                     Community * com = adj_com_itr->first;
 
-                    uint32_t totla_degree = community->totla_degree_;
+                    uint32_t total_degree = com->total_degree_;
                     uint32_t m2 = 2 * edge_num;
                     
-                    double increase = mc - gamma_* totla_degree_ *degree /m2;
+                    double increase = mc - gamma_ * ((double)(total_degree * degree)) /(double)m2;
                     if (increase > best_increase)
                     {
                         best_increase = increase;
-                        best_comm = community;
+                        best_comm = com;
                     }
+                    
+                    adj_com_itr ++;
                 }
 
-                pool.addVertexToCommunity(v, best_comm);
+                pool->addVertexToCommunity(v, best_comm);
+                itr ++;
             }
 
-            double new_modularity = pool.getModularity();
-            if(new_modularity - old_modularity < delta)
+            double new_modularity = pool->getModularity();
+            if(new_modularity - old_modularity < delta_)
             {
                 break;
             }
@@ -87,9 +97,7 @@ namespace CommunityDetection
             }
         }
 
-        //copy pool's vertex_community_map_ to communities
-
-        return communities.size();
+        return pool->getCommunitySet(communities);
     }
-*/
+
 }

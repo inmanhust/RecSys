@@ -9,7 +9,7 @@ namespace CommunityDetection
     class Community
     {
     public:
-        Community(Graph * graph, Vertex * vertex);
+        Community(Graph * graph, Vertex * vertex, uint32_t id);
         //Community(Graph * graph, set<Vertex*> nodes);
         ~Community();
 

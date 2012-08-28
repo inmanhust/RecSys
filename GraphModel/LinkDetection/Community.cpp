@@ -2,11 +2,11 @@
 
 namespace CommunityDetection
 {
-    Community::Community(Graph * graph, Vertex * vertex)
+    Community::Community(Graph * graph, Vertex * vertex, uint32_t id)
     {
         graph_ = graph;
         nodes_.insert(vertex);
-        community_id_ = 0;
+        community_id_ = id;
         in_degree_ = 0;
         total_degree_ = vertex->getDegree();
     }

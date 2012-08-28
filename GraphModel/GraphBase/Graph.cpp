@@ -2,6 +2,7 @@
 #include "GraphCommon/CommonTools.h"
 #include <fstream>
 #include <iostream>
+
 using namespace std;
 
 namespace GraphModel
@@ -130,12 +131,20 @@ namespace GraphModel
     {
         cout << "Total Node Num:\t" << vertex_map_.size() << endl;
         cout << "Total Edge Num:\t" << edge_set_.size() << endl;
-        return;
+        
         cout << "Vertex are as follows:" << endl;
         map<VERTEX_TYPE_T, Vertex*>::const_iterator map_iter = vertex_map_.begin();
         while(map_iter != vertex_map_.end())
         {
             cout << "vertex id: " << map_iter->first << endl;
+            Vertex * v = map_iter->second;
+            set<Edge*, EdgeLess<Edge*> >& adj_edges = v->adj_edge_;
+            set<Edge*, EdgeLess<Edge*> >::iterator nitr;
+            for(nitr=adj_edges.begin(); nitr!=adj_edges.end(); nitr++)
+            {
+                printf("%u\t",(*nitr)->getAdjVertex(v->vid_));
+            }
+            printf("\n");
             map_iter ++;
         }
 

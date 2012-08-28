@@ -10,11 +10,12 @@ namespace CommunityDetection
         SingleDetection(Graph * graph);
         SingleDetection(Graph * graph, double gamma, uint32_t iterations);
     public:
-        //uint32_t findCommunities(set<Community*>& communities);
+        uint32_t findCommunities(map<uint32_t, Community*>& communities);
     public:
         Graph * graph_;
         CommunityPool * pool;
         double gamma_;
+        double delta_;
         uint32_t iterations_;
     };
 }

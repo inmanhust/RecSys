@@ -19,11 +19,16 @@ namespace CommunityDetection
  //       uint32_t getNeighborCommunities(const Vertex * vertex, set<Community*>& neighbors);
         Community * getCommunity(uint32_t vertex_id);
         double getModularity();
+        uint32_t getCommunitySet(map<uint32_t, Community*>& communities);
+        void printPool();
    
 
     public:
         Graph * graph_;
         CommunityIndex vertex_community_map_;
+
+    private:
+        uint32_t max_community_id_;
     };
 }
 

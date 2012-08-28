@@ -1,13 +1,11 @@
-#ifndef _GRAPH_INTERFACE_H_
-#define _GRAPH_INTERFACE_H_
+#ifndef __GRAPH__INTERFACE_H__
+#define __GRAPH__INTERFACE_H__
 
 #include <stdint.h>
 #include <stdio.h>
 #include <set>
-#include <vector>
 #include <map>
 
-using std::vector;
 using std::set;
 using std::map;
 
@@ -24,10 +22,10 @@ namespace GraphModel
 
     public:
         VERTEX_TYPE_T getAdjVertex(VERTEX_TYPE_T vertex_id) const;
-        bool operator==(const Edge& edge) const;
-        void printEdgeInfo() const;
         bool isSameEdge(const Edge& edge) const;
+        bool operator==(const Edge& edge) const;
         uint32_t getEdgeUniqID() const;
+        void printEdgeInfo() const;
 
     public:
         VERTEX_TYPE_T front_vertex_id_;
@@ -64,7 +62,7 @@ namespace GraphModel
             uint32_t sum1 = edge1->getEdgeUniqID();
             uint32_t sum2 = edge2->getEdgeUniqID();
 
-            return sum1>sum2;
+            return sum1 < sum2;
         }
     };
 
@@ -115,6 +113,6 @@ namespace GraphModel
             set<Edge*, EdgeLess<Edge*> > edge_set_;       
     };
 
-};
+}
 
 #endif //_GRAPH_INTERFACE_H_

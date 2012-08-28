@@ -12,12 +12,14 @@ namespace CommunityDetection
     void CommunityPool::initCommunityPool()
     {
         const map<VERTEX_TYPE_T, Vertex*>& vertexs = graph_->vertex_map_;
+        max_community_id_ ++;
         map<uint32_t, Vertex*>::const_iterator itr = vertexs.begin();
         while (itr != vertexs.end())
         {
             Vertex * v = itr->second;
-            Community * community = new Community(graph_, v);
+            Community * community = new Community(graph_, v, max_community_id_);
             vertex_community_map_.insert(pair<uint32_t, Community*>(v->vid_, community));
+            max_community_id_ ++;
             itr ++;
         }
     }
@@ -32,7 +34,7 @@ namespace CommunityDetection
         }
         else
         {
-            fprintf(stderr, "[Warning][Vertex[id: %u] is not Exist in the Community Pool]\n", vertex->vid_);
+         //   fprintf(stderr, "[Warning][Vertex[id: %u] is not Exist in the Community Pool]\n", vertex->vid_);
         }
         community->insertVertex(vertex);          
         vertex_community_map_[vertex->vid_] = community;
@@ -92,18 +94,58 @@ namespace CommunityDetection
     double CommunityPool::getModularity()
     {
         map<uint32_t, Community*> communities;
-        /*
+        
         CommunityIndex::iterator itr = vertex_community_map_.begin();
         while (itr != vertex_community_map_.end())
         {
             Community * community = itr->second;
-            communities.insert(community);
+            uint32_t community_id = community->community_id_;
+            //printf("modularity community_id:\t%u\n",community_id);
+            if (communities.find(community_id) == communities.end())
+            {
+                communities.insert(pair<uint32_t, Community*>(community_id, community));
+            }
             itr ++;
         }
-        */
+        
         double modularity = Modularity::getQualityScore(graph_, communities,  1.0);
         
         return modularity;
+    }
+
+    uint32_t CommunityPool::getCommunitySet(map<uint32_t, Community*>& communities)
+    {
+        CommunityIndex::iterator itr = vertex_community_map_.begin();
+        while (itr != vertex_community_map_.end())
+        {
+            Community * community = itr->second;
+            uint32_t community_id = community->community_id_;
+            if (communities.find(community_id) == communities.end())
+            {
+                communities.insert(pair<uint32_t, Community*>(community_id, community));
+            }
+            itr ++;
+        }
+
+        return communities.size();
+    }
+ 
+    void CommunityPool::printPool()
+    {
+        CommunityIndex::iterator itr = vertex_community_map_.begin();
+        while (itr != vertex_community_map_.end())
+        {
+            Community * community = itr->second;
+            set<Vertex*, VertexLess<Vertex*> >& nodes = community->nodes_;
+            set<Vertex*, VertexLess<Vertex*> >::iterator node_itr;
+            printf("Community id: \t%u, nodes:\n",community->community_id_);
+            for (node_itr=nodes.begin();node_itr!=nodes.end(); node_itr++)
+            {
+                printf("%u\t",(*node_itr)->vid_);
+            }
+            printf("\n");
+            itr ++;
+        }
     }
 }
 
