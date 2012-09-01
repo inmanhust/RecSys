@@ -7,7 +7,7 @@ DIR = .
 INCLUDE = $(COMMONINCLUDE) -I.
 
 
-LIB = $(COMMONLIBS) $(COMMONLINKLIBS) -lgraphcommon -lgraphbase -llinkdetection -lcrypto
+LIB = $(COMMONLIBS) $(COMMONLINKLIBS) -lgraphcommon -lbasegraph -lcrypto
 
 #CFLAGS += -O2
 

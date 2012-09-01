@@ -1,15 +1,15 @@
 #include "GraphCommon/CommonTools.h"
 #include "GraphBase/GraphInterface.h"
-#include "LinkDetection/SingleDetection.h"
 #include <iostream>
 
 using namespace std;
 using namespace GraphModel;
-using namespace CommunityDetection;
+//using namespace CommunityDetection;
 
 int main()
 {
     Graph graph;
+/*
     graph.readGraph("data/g_data.txt");
  //   graph.printGraphInfo();
 
@@ -32,6 +32,7 @@ int main()
             printf("\n");
             itr ++;
     }
+*/
     cout << "Done..." << endl;
     return 0;
 }
