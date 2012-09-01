@@ -1,1 +1,1 @@
-BaseGraph.o: ./BaseGraph.cpp ./BaseGraph.h ./GraphCommon.h
+BaseGraph.o: BaseGraph.cpp BaseGraph.h GraphCommon.h

@@ -2,14 +2,14 @@
 
 namespace GraphModel
 {
-/*
+
     BaseEdge::BaseEdge() {}
 
-    BaseEdge::(const VertexId& front_vertex_id, const VertexId& tail_vertex_id):front_vertex_id_(front_vertex_id), tail_vertex_id_(tail_vertex_id)
+    BaseEdge::BaseEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id):front_vertex_id_(front_vertex_id), tail_vertex_id_(tail_vertex_id)
     {
     }
 
-    BaseEdge::(const VertexId& front_vertex_id, const VertexId& tail_vertex_id, double weight)::front_vertex_id_(front_vertex_id), tail_vertex_id_(tail_vertex_id), weight_(weight)
+    BaseEdge::BaseEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id, double weight):front_vertex_id_(front_vertex_id), tail_vertex_id_(tail_vertex_id), weight_(weight)
     {
     }
 
@@ -25,36 +25,38 @@ namespace GraphModel
             return false;
     }
 
-    bool BaseEdge::operator(const BaseEdge& edge) const
+    bool BaseEdge::operator==(const BaseEdge& edge) const
     {
         return isSameEdge(edge);
     }
 
+    void BaseEdge::printEdgeMsg() const {}
 
-    BaseVertex::Vertex() {}
 
-    BaseVertex::Vertex(const VertexId& vid):vid_(vid) {}
+    BaseVertex::BaseVertex() {}
 
-    BaseVertex::~Vertex();
+    BaseVertex::BaseVertex(const VertexId& vid):vid_(vid) {}
 
-    void BaseVertex::addEdge(Edge * edge)
+    BaseVertex::~BaseVertex() {}
+
+    void BaseVertex::addEdge(BaseEdge * edge)
     {
         adj_edges_.insert(edge);
     }
 
-    void BaseVertex::removeEdge(Edge * edge)
+    void BaseVertex::removeEdge(BaseEdge * edge)
     {
         EdgeSet::const_iterator itr = adj_edges_.find(edge);
         if (itr != adj_edges_.end())
             adj_edges_.erase(itr);
     }
 
-    bool BaseEdge::isAdjVertex(Vertex * vertex) const
+    bool BaseVertex::isAdjVertex(BaseVertex * vertex) const
     {
         EdgeSet::const_iterator itr;
         for (itr=adj_edges_.begin();itr!=adj_edges_.end();itr++)
         {
-            const Edge * edge = *itr;
+            const BaseEdge * edge = *itr;
             const VertexId& vid = edge->getAdjVertex(vertex->vid_);
             if (vid !=ERROR_VERTEX_ID  && VertexIdComp(vid, vid_) == 0)
                 return true;
@@ -63,13 +65,17 @@ namespace GraphModel
         return false;
     }
 
-    bool BaseVertex::operator==(const Vertex& vertex) const
+    bool BaseVertex::operator==(const BaseVertex& vertex) const
     {
         return VertexIdComp(vertex.vid_, vid_) == 0;
     }
 
+    void BaseVertex::printVertexMsg() const {}
 
-    BaseGraph::Graph() {}
+
+    BaseGraph::BaseGraph() {}
+
+    BaseGraph::~BaseGraph() {}
 
     bool BaseGraph::addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id)
     {
@@ -80,12 +86,12 @@ namespace GraphModel
             return false;
         }
 
-        Vertex * f_vertex;
-        Vertex * t_vertex;
+        BaseVertex * f_vertex;
+        BaseVertex * t_vertex;
         IdToVertexMap::iterator itr = vertex_map_.find(front_vertex_id);
         if (itr == vertex_map_.end())
         {
-            f_vertex = new Vertex(front_vertex_id);
+            f_vertex = new BaseVertex(front_vertex_id);
             vertex_map_[front_vertex_id] = f_vertex;
         }
         else
@@ -96,7 +102,7 @@ namespace GraphModel
         itr = vertex_map_.find(tail_vertex_id);
         if (itr == vertex_map_.end())
         {
-            t_vertex = new Vertex(tail_vertex_id);
+            t_vertex = new BaseVertex(tail_vertex_id);
             vertex_map_[tail_vertex_id] = t_vertex;
         }
         else
@@ -110,7 +116,7 @@ namespace GraphModel
             return false;
         }
 
-        Edge * edge = new Edge(front_vertex_id, tail_vertex_id);
+        BaseEdge * edge = new BaseEdge(front_vertex_id, tail_vertex_id);
         f_vertex->addEdge(edge);
         t_vertex->addEdge(edge);
 
@@ -128,12 +134,12 @@ namespace GraphModel
             return false;
         }
 
-        Vertex * f_vertex;
-        Vertex * t_vertex;
+        BaseVertex * f_vertex;
+        BaseVertex * t_vertex;
         IdToVertexMap::iterator itr = vertex_map_.find(front_vertex_id);
         if (itr == vertex_map_.end())
         {
-            f_vertex = new Vertex(front_vertex_id);
+            f_vertex = new BaseVertex(front_vertex_id);
             vertex_map_[front_vertex_id] = f_vertex;
         }
         else
@@ -144,7 +150,7 @@ namespace GraphModel
         itr = vertex_map_.find(tail_vertex_id);
         if (itr == vertex_map_.end())
         {
-            t_vertex = new Vertex(tail_vertex_id);
+            t_vertex = new BaseVertex(tail_vertex_id);
             vertex_map_[tail_vertex_id] = t_vertex;
         }
         else
@@ -158,8 +164,8 @@ namespace GraphModel
             return false;
         }
 
-        Edge * edge = new Edge(front_vertex_id, tail_vertex_id);
-        edge->weight = weight
+        BaseEdge * edge = new BaseEdge(front_vertex_id, tail_vertex_id);
+        edge->weight_ = weight;
         f_vertex->addEdge(edge);
         t_vertex->addEdge(edge);
 
@@ -167,7 +173,7 @@ namespace GraphModel
         return true;
     }
 
-    bool BaseGraph::isVertexExist(const Vertex * vertex) const
+    bool BaseGraph::isVertexExist(const BaseVertex * vertex) const
     {
         IdToVertexMap::const_iterator itr = vertex_map_.find(vertex->vid_);
         if(itr == vertex_map_.end())
@@ -175,5 +181,11 @@ namespace GraphModel
         else
             return false;
     }
-*/
+
+    void BaseGraph::printGraphMsg() const {}
+
+    bool BaseGraph::readGraph(const char * filepath)
+    {
+        return true;
+    }
 }

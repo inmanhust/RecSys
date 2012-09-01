@@ -1,5 +1,5 @@
 #include "GraphCommon/CommonTools.h"
-#include "GraphBase/GraphInterface.h"
+#include "BaseGraph/BaseGraph.h"
 #include <iostream>
 
 using namespace std;
@@ -8,7 +8,7 @@ using namespace GraphModel;
 
 int main()
 {
-    Graph graph;
+    BaseGraph graph;
 /*
     graph.readGraph("data/g_data.txt");
  //   graph.printGraphInfo();

@@ -3,10 +3,10 @@
 
 #include "GraphCommon.h"
 #include <tr1/unordered_map>
+#include <tr1/unordered_set>
 
 namespace GraphModel
 {
-/*
     class BaseEdge
     {
     public:
@@ -26,7 +26,7 @@ namespace GraphModel
                 ERROR_VERTEX_ID;
         }
 
-        const bool isSameEdge(const BaseEdge& edge) const;
+        bool isSameEdge(const BaseEdge& edge) const;
         bool operator==(const BaseEdge& edge) const;
 
         virtual void printEdgeMsg() const;
@@ -36,46 +36,50 @@ namespace GraphModel
         double weight_;
     };
 
-
     typedef std::tr1::unordered_set<BaseEdge*> EdgeSet;
+
     class BaseVertex
     {
     public:
-        Vertex();
-        Vertex(const VertexId& vid);
-        virtual ~Vertex();
+        BaseVertex();
+        BaseVertex(const VertexId& vid);
+        virtual ~BaseVertex();
 
     public:
         void addEdge(BaseEdge * edge);
         void removeEdge(BaseEdge * edge);
 
-        bool isAdjVertex(Vertex * vertex) const
-        bool operator==(const Vertex& vertex) const;
+        bool isAdjVertex(BaseVertex * vertex) const;
+        bool operator==(const BaseVertex& vertex) const;
 
         inline uint32_t getDegree() const
         {
             return adj_edges_.size();
         }
 
+        virtual void printVertexMsg() const;
 
     public:
         VertexId vid_;
         EdgeSet adj_edges_;
     };
 
-
-    typedef std::tr1::unordered_map<VertexId, Vertex*> IdToVertexMap;
+#ifdef String_VertexId
+    typedef std::tr1::unordered_map<VertexId, BaseVertex*> IdToVertexMap;
+#else
+    typedef std::tr1::unordered_map<VertexId, BaseVertex*, StrHash, StrEqual> IdToVertexMap;
+#endif
 
     class BaseGraph
     {
     public:
-        Graph();
-        virtual ~Graph();
+        BaseGraph();
+        virtual ~BaseGraph();
 
     public:
         bool addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id);
         bool addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id, double weight);
-        bool isVertexExist(const Vertex * vertex) const;
+        bool isVertexExist(const BaseVertex * vertex) const;
         
         virtual bool readGraph(const char * filepath);
         virtual void printGraphMsg() const;
@@ -84,7 +88,7 @@ namespace GraphModel
         uint32_t edge_num_;
         IdToVertexMap vertex_map_;
     };
-*/
+
 }
 
 #endif //__BASE_GRAPH__H__

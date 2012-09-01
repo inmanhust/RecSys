@@ -1,8 +1,4 @@
-main.o: ./main.cpp \
-  /home/caijiantao/personal_code/GraphModel/GraphCommon/CommonTools.h \
-  /home/caijiantao/personal_code/GraphModel/GraphBase/GraphInterface.h \
-  /home/caijiantao/personal_code/GraphModel/LinkDetection/SingleDetection.h \
-  /home/caijiantao/personal_code/GraphModel/LinkDetection/CommunityPool.h \
-  /home/caijiantao/personal_code/GraphModel/LinkDetection/Community.h \
-  /home/caijiantao/personal_code/GraphModel/GraphBase/GraphInterface.h \
-  /home/caijiantao/personal_code/GraphModel/LinkDetection/Modularity.h
+main.o: main.cpp \
+ /home/inman/Project/svn/GraphModel/GraphCommon/CommonTools.h \
+ /home/inman/Project/svn/GraphModel/BaseGraph/BaseGraph.h \
+ /home/inman/Project/svn/GraphModel/BaseGraph/GraphCommon.h
