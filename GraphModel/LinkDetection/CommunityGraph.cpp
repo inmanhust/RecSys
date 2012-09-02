@@ -13,8 +13,9 @@ namespace GraphModel
 	Vertex::Vertex(const VertexId& vid):BaseVertex(vid) {}
 
 	Graph::Graph():BaseGraph() {}
-
-   bool Graph::addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id)
+   
+ 
+    bool Graph::addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id)
     {
         if (VertexIdComp(front_vertex_id, tail_vertex_id) == 0)
         {
@@ -49,7 +50,8 @@ namespace GraphModel
 
         if (f_vertex->isAdjVertex(t_vertex))
         {
-            fprintf(stderr, "[Error][Edge is exist]\n");
+//            fprintf(stderr, "[Error][Edge is exist]\n");
+            std::cout << "[Error][Edge "<< front_vertex_id << "----" << tail_vertex_id <<" is exist]\n";
             return false;
         }
 

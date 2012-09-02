@@ -82,7 +82,7 @@ namespace GraphModel
 	}
 
 
-    BaseGraph::BaseGraph() {}
+    BaseGraph::BaseGraph():edge_num_(0) {}
 
     BaseGraph::~BaseGraph() {}
 

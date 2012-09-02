@@ -1,18 +1,19 @@
 #include "GraphCommon/CommonTools.h"
-#include "BaseGraph/BaseGraph.h"
+#include "LinkDetection/CommunityGraph.h"
+#include "LinkDetection/SingleDetection.h"
 #include <iostream>
 
 using namespace std;
 using namespace GraphModel;
-//using namespace CommunityDetection;
+using namespace CommunityDetection;
 
 int main()
 {
-    BaseGraph graph;
-/*
+    Graph graph;
     graph.readGraph("data/g_data.txt");
- //   graph.printGraphInfo();
+    graph.printGraphMsg();
 
+/*
     map<uint32_t, Community*> communities;
     SingleDetection detection(&graph, 1.0, 30);
     detection.findCommunities(communities);

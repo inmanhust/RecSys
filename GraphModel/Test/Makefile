@@ -7,7 +7,7 @@ DIR = .
 INCLUDE = $(COMMONINCLUDE) -I.
 
 
-LIB = $(COMMONLIBS) $(COMMONLINKLIBS) -lgraphcommon -lbasegraph -lcrypto
+LIB = $(COMMONLIBS) $(COMMONLINKLIBS) -lgraphcommon -lbasegraph -llinkdetection -lcrypto
 
 CFLAGS += -Wno-deprecated
 

@@ -64,12 +64,7 @@ namespace GraphModel
         EdgeSet adj_edges_;
     };
 
-#ifdef String_VertexId
-    typedef std::tr1::unordered_map<VertexId, BaseVertex*, StrHash, StrEqual> IdToVertexMap;
-#else
     typedef std::tr1::unordered_map<VertexId, BaseVertex*> IdToVertexMap;
-#endif
-
     class BaseGraph
     {
     public:

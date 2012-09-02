@@ -9,14 +9,14 @@ namespace GraphModel
 	{
 	public:
 	    Edge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id);
-		~Edge();
+		~Edge() {};
 	};
 
 	class Vertex : public BaseVertex
 	{
 	public:
 	    Vertex(const VertexId& vid);
-		~Vertex();
+		~Vertex() {};
 	};
 
     class Graph : public BaseGraph
@@ -24,7 +24,7 @@ namespace GraphModel
 	public:
 	    Graph();
 
-		~Graph();
+		~Graph() {};
 
 		bool addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id);
 
