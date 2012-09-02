@@ -23,7 +23,7 @@ namespace GraphModel
             else if (VertexIdComp(vertex_id, tail_vertex_id_))
                 return front_vertex_id_;
             else
-                ERROR_VERTEX_ID;
+                return ERROR_VERTEX_ID;
         }
 
         bool isSameEdge(const BaseEdge& edge) const;
@@ -65,9 +65,9 @@ namespace GraphModel
     };
 
 #ifdef String_VertexId
-    typedef std::tr1::unordered_map<VertexId, BaseVertex*> IdToVertexMap;
-#else
     typedef std::tr1::unordered_map<VertexId, BaseVertex*, StrHash, StrEqual> IdToVertexMap;
+#else
+    typedef std::tr1::unordered_map<VertexId, BaseVertex*> IdToVertexMap;
 #endif
 
     class BaseGraph
@@ -77,8 +77,8 @@ namespace GraphModel
         virtual ~BaseGraph();
 
     public:
-        bool addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id);
-        bool addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id, double weight);
+        virtual bool addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id);
+        virtual bool addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id, double weight);
         bool isVertexExist(const BaseVertex * vertex) const;
         
         virtual bool readGraph(const char * filepath);

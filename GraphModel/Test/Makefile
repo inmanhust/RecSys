@@ -9,7 +9,7 @@ INCLUDE = $(COMMONINCLUDE) -I.
 
 LIB = $(COMMONLIBS) $(COMMONLINKLIBS) -lgraphcommon -lbasegraph -lcrypto
 
-#CFLAGS += -O2
+CFLAGS += -Wno-deprecated
 
 TARGET = run_graph
 

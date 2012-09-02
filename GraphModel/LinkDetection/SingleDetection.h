@@ -10,7 +10,7 @@ namespace CommunityDetection
         SingleDetection(Graph * graph);
         SingleDetection(Graph * graph, double gamma, uint32_t iterations);
     public:
-        uint32_t findCommunities(map<uint32_t, Community*>& communities);
+        uint32_t findCommunities(std::tr1::unordered_map<uint32_t, Community*>& communities);
     public:
         Graph * graph_;
         CommunityPool * pool;

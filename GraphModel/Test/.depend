@@ -1,4 +1,4 @@
 main.o: main.cpp \
- /home/inman/Project/svn/GraphModel/GraphCommon/CommonTools.h \
- /home/inman/Project/svn/GraphModel/BaseGraph/BaseGraph.h \
- /home/inman/Project/svn/GraphModel/BaseGraph/GraphCommon.h
+ /home/inman/project/svn/GraphModel/GraphCommon/CommonTools.h \
+ /home/inman/project/svn/GraphModel/BaseGraph/BaseGraph.h \
+ /home/inman/project/svn/GraphModel/BaseGraph/GraphCommon.h

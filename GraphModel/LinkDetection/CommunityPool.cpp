@@ -11,12 +11,12 @@ namespace CommunityDetection
 
     void CommunityPool::initCommunityPool()
     {
-        const map<VERTEX_TYPE_T, Vertex*>& vertexs = graph_->vertex_map_;
+        const IdToVertexMap& vertexs = graph_->vertex_map_;
         max_community_id_ ++;
-        map<uint32_t, Vertex*>::const_iterator itr = vertexs.begin();
+        IdToVertexMap::const_iterator itr = vertexs.begin();
         while (itr != vertexs.end())
         {
-            Vertex * v = itr->second;
+            Vertex * v = (Vertex*)itr->second;
             Community * community = new Community(graph_, v, max_community_id_);
             vertex_community_map_.insert(pair<uint32_t, Community*>(v->vid_, community));
             max_community_id_ ++;
@@ -61,11 +61,11 @@ namespace CommunityDetection
     }
 
 /*
-    uint32_t getNeighborCommunities(const Vertex * vertex, set<Community*>& neighbors) const
+    uint32_t getNeighborCommunities(const Vertex * vertex, CommunitySet& neighbors) const
     {
         neighbors.clear();
-        const set<Edge*, EdgeLess<Edge*> >& adj_edges = vertex->adj_edge_;
-        set<Edge*, EdgeLess<Edge*>::iterator itr = adj_edges.begin();
+        const EdgeSet& adj_edges = vertex->adj_edge_;
+        EdgeSet::iterator itr = adj_edges.begin();
         CommunityIndex::iterator idx_itr;
         while (itr !=adj_edges.end())
         {
@@ -79,13 +79,14 @@ namespace CommunityDetection
                 continue;
             }
             Community * community = idx_itr->second;
-            neighbors.add(community)
+            neighbors.insert(community);
             itr ++;
         }
 
         return neighbors.size();
     }
 */
+
     Community * CommunityPool::getCommunity(uint32_t vertex_id)
     {
         return vertex_community_map_[vertex_id];
@@ -93,7 +94,7 @@ namespace CommunityDetection
 
     double CommunityPool::getModularity()
     {
-        map<uint32_t, Community*> communities;
+        CommunityIndex communities;
         
         CommunityIndex::iterator itr = vertex_community_map_.begin();
         while (itr != vertex_community_map_.end())
@@ -113,7 +114,7 @@ namespace CommunityDetection
         return modularity;
     }
 
-    uint32_t CommunityPool::getCommunitySet(map<uint32_t, Community*>& communities)
+    uint32_t CommunityPool::getCommunitySet(CommunityIndex& communities)
     {
         CommunityIndex::iterator itr = vertex_community_map_.begin();
         while (itr != vertex_community_map_.end())
@@ -130,8 +131,9 @@ namespace CommunityDetection
         return communities.size();
     }
  
-    void CommunityPool::printPool()
+    void CommunityPool::printPool() const
     {
+		/*
         CommunityIndex::iterator itr = vertex_community_map_.begin();
         while (itr != vertex_community_map_.end())
         {
@@ -146,6 +148,7 @@ namespace CommunityDetection
             printf("\n");
             itr ++;
         }
+		*/
     }
 }
 

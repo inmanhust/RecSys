@@ -5,7 +5,8 @@
 
 namespace CommunityDetection
 {
-   typedef map<uint32_t, Community*> CommunityIndex;
+	typedef std::tr1::unordered_map<uint32_t, Community*> CommunityIndex;
+    typedef std::tr1::unordered_set<Community*> CommunitySet;
 
     class CommunityPool
     {
@@ -16,11 +17,11 @@ namespace CommunityDetection
         void initCommunityPool();
         bool addVertexToCommunity(Vertex * vertex, Community * community);
         bool removeVertexFromCommunity(Vertex * vertex,  Community * community);
- //       uint32_t getNeighborCommunities(const Vertex * vertex, set<Community*>& neighbors);
+//        uint32_t getNeighborCommunities(const Vertex * vertex, CommunitySet& neighbors);
         Community * getCommunity(uint32_t vertex_id);
         double getModularity();
-        uint32_t getCommunitySet(map<uint32_t, Community*>& communities);
-        void printPool();
+        uint32_t getCommunitySet(CommunityIndex& communities);
+        void printPool() const;
    
 
     public:

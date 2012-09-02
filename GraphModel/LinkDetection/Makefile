@@ -4,7 +4,7 @@ DIR = .
 
 INCLUDE = $(COMMONINCLUDE) -I.
 
-LIB = $(COMMONLIBS) -lgraphbase -lgraphcommon
+LIB = $(COMMONLIBS) -lgraphcommon #-lbasegraph
 
 TARGETSO = liblinkdetection.so
 

@@ -1,16 +1,17 @@
 #ifndef __COMMUNITY__H__
 #define __COMMUNITY__H__
 
-#include "GraphBase/GraphInterface.h"
+#include "CommunityGraph.h"
+
 using namespace GraphModel;
 
 namespace CommunityDetection
 {
+	typedef std::tr1::unordered_set<Vertex*> VertexSet;
     class Community
     {
     public:
         Community(Graph * graph, Vertex * vertex, uint32_t id);
-        //Community(Graph * graph, set<Vertex*> nodes);
         ~Community();
 
     public:
@@ -21,7 +22,7 @@ namespace CommunityDetection
 
     public:
         Graph * graph_;
-        set<Vertex*, VertexLess<Vertex*> > nodes_;
+        VertexSet nodes_;
         uint32_t community_id_;
         uint32_t in_degree_;
         uint32_t total_degree_;

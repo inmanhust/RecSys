@@ -1,4 +1,5 @@
 #include "SingleDetection.h"
+using std::tr1::unordered_map;
 
 namespace CommunityDetection
 {
@@ -17,24 +18,24 @@ namespace CommunityDetection
     }
 
 
-    uint32_t SingleDetection::findCommunities(map<uint32_t, Community*>& communities)
+    uint32_t SingleDetection::findCommunities(std::tr1::unordered_map<uint32_t, Community*>& communities)
     {
         pool->initCommunityPool();
         //pool->printPool();
 
-        uint32_t edge_num = graph_->edge_set_.size();
-        map<Community*, double> comm_stat_map;
+        uint32_t edge_num = graph_->edge_num_;
+        std::tr1::unordered_map<Community*, double> comm_stat_map;
         double old_modularity = pool->getModularity();
         //printf("modularity: %f\n", old_modularity);
         for (uint32_t idx=0; idx<iterations_; idx++)
         {
             printf("[Info][iteration: %u ]\n",idx);          
 
-            map<uint32_t, Vertex*>& vertexs = graph_->vertex_map_;
-            map<uint32_t, Vertex*>::iterator itr = vertexs.begin();
+            IdToVertexMap& vertexs = graph_->vertex_map_;
+            IdToVertexMap::iterator itr = vertexs.begin();
             while (itr != vertexs.end())
             {
-                Vertex * v =  itr->second;
+                Vertex * v =  (Vertex*)itr->second;
                 double degree = v->getDegree();
                 Community * ori_comm = pool->getCommunity(v->vid_);
                 pool->removeVertexFromCommunity(v, ori_comm);
@@ -44,10 +45,10 @@ namespace CommunityDetection
                 
                 comm_stat_map.clear();
 
-                set<Edge*>::iterator edge_itr = (v->adj_edge_).begin();
-                while(edge_itr != (v->adj_edge_).end())
+                EdgeSet::iterator edge_itr = (v->adj_edges_).begin();
+                while(edge_itr != (v->adj_edges_).end())
                 {
-                    Edge * edge = *edge_itr;
+                    Edge * edge = (Edge*)*edge_itr;
                     uint32_t vid = edge->getAdjVertex(v->vid_);
                     Community * adj_comm = pool->getCommunity(vid);
                    
@@ -63,7 +64,7 @@ namespace CommunityDetection
                     edge_itr ++;
                 }
 
-                map<Community*, double>::iterator adj_com_itr = comm_stat_map.begin();
+                unordered_map<Community*, double>::iterator adj_com_itr = comm_stat_map.begin();
                 while (adj_com_itr != comm_stat_map.end())
                 {
                     double mc = adj_com_itr->second;

@@ -9,7 +9,7 @@ namespace CommunityDetection
     class Modularity
     {
     public:
-        static double getQualityScore(const Graph * graph, map<uint32_t, Community*>& communities, double gamma);
+        static double getQualityScore(const Graph * graph, std::tr1::unordered_map<uint32_t, Community*>& communities, double gamma);
     };
 }
 

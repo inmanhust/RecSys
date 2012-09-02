@@ -1,4 +1,5 @@
 #include "BaseGraph.h"
+#include <iostream>
 
 namespace GraphModel
 {
@@ -30,7 +31,11 @@ namespace GraphModel
         return isSameEdge(edge);
     }
 
-    void BaseEdge::printEdgeMsg() const {}
+    void BaseEdge::printEdgeMsg() const 
+	{
+	    //fprintf(stderr, "[Info][front: %u, tail: %u, weight: %f]\n", front_vertex_id_, tail_vertex_id_, weight_);	
+		std::cout << "[Info][front: " << front_vertex_id_ << ", tail: " << tail_vertex_id_ << ", weight: " << weight_ << "]\n";
+    }
 
 
     BaseVertex::BaseVertex() {}
@@ -70,7 +75,11 @@ namespace GraphModel
         return VertexIdComp(vertex.vid_, vid_) == 0;
     }
 
-    void BaseVertex::printVertexMsg() const {}
+    void BaseVertex::printVertexMsg() const 
+	{
+	    //fprintf(stderr, "[Info][vid: %u, edge size: %u]", vid_, adj_edges_.size());	
+		std::cout << "[Info][vid: " << vid_ << ", edge size: " << adj_edges_.size() << "]\n";
+	}
 
 
     BaseGraph::BaseGraph() {}
@@ -81,8 +90,8 @@ namespace GraphModel
     {
         if (VertexIdComp(front_vertex_id, tail_vertex_id) == 0)
         {
-            //这里需要打印具体的节点内容
-            fprintf(stderr, "[Error][Same VertexId]\n");
+		    std::cout << "[Error][Same VertexId: " << front_vertex_id << "]\n";
+        //    fprintf(stderr, "[Error][Same VertexId]\n");
             return false;
         }
 
@@ -129,7 +138,6 @@ namespace GraphModel
 
         if (VertexIdComp(front_vertex_id, tail_vertex_id) == 0)
         {
-            //这里需要打印具体的节点内容
             fprintf(stderr, "[Error][Same VertexId]\n");
             return false;
         }
