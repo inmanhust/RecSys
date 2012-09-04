@@ -19,6 +19,7 @@ namespace CommunityDetection
         uint32_t getOutDegree() const;
         bool insertVertex(Vertex * vertex);
         bool removeVertex(Vertex * vertex);
+        void printCommunityMsg() const;
 
     public:
         Graph * graph_;

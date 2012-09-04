@@ -20,7 +20,7 @@ namespace GraphModel
         {
             if (VertexIdComp(vertex_id, front_vertex_id_) == 0)
                 return tail_vertex_id_;
-            else if (VertexIdComp(vertex_id, tail_vertex_id_))
+            else if (VertexIdComp(vertex_id, tail_vertex_id_) == 0 )
                 return front_vertex_id_;
             else
                 return ERROR_VERTEX_ID;

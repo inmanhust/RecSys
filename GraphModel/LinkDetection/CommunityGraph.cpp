@@ -19,8 +19,8 @@ namespace GraphModel
     {
         if (VertexIdComp(front_vertex_id, tail_vertex_id) == 0)
         {
-		    std::cout << "[Error][Same VertexId: " << front_vertex_id << "]\n";
-        //    fprintf(stderr, "[Error][Same VertexId]\n");
+//		    std::cout << "[Error][Same VertexId: " << front_vertex_id << "]\n";
+//            fprintf(stderr, "[Error][Same VertexId]\n");
             return false;
         }
 
@@ -51,7 +51,7 @@ namespace GraphModel
         if (f_vertex->isAdjVertex(t_vertex))
         {
 //            fprintf(stderr, "[Error][Edge is exist]\n");
-            std::cout << "[Error][Edge "<< front_vertex_id << "----" << tail_vertex_id <<" is exist]\n";
+//            std::cout << "[Error][Edge "<< front_vertex_id << "----" << tail_vertex_id <<" is exist]\n";
             return false;
         }
 
@@ -68,7 +68,7 @@ namespace GraphModel
 
         if (VertexIdComp(front_vertex_id, tail_vertex_id) == 0)
         {
-            fprintf(stderr, "[Error][Same VertexId]\n");
+//            fprintf(stderr, "[Error][Same VertexId]\n");
             return false;
         }
 
@@ -98,7 +98,7 @@ namespace GraphModel
 
         if (f_vertex->isAdjVertex(t_vertex))
         {
-            fprintf(stderr, "[Error][Edge is exist]\n");
+//            fprintf(stderr, "[Error][Edge is exist]\n");
             return false;
         }
 
@@ -146,5 +146,21 @@ namespace GraphModel
 	{
 	    fprintf(stderr,"[Info][Total Node Num: %u]\n", (uint32_t)vertex_map_.size());
 		fprintf(stderr,"[Info][Total Edge Num: %u]\n", edge_num_);
+
+		IdToVertexMap::const_iterator itr;
+		for(itr=vertex_map_.begin();itr!=vertex_map_.end();itr++)
+		{
+			BaseVertex * v = itr->second;
+			v->printVertexMsg();
+			/*
+			EdgeSet::iterator eitr;
+			v->printVertexMsg();
+			for(eitr=(v->adj_edges_).begin();eitr!=(v->adj_edges_).end();eitr++)
+			{
+				(*eitr)->printEdgeMsg();
+			}
+			*/
+		}
+		printf("Read Graph Done\n");
 	}
 }

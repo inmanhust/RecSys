@@ -26,7 +26,8 @@ namespace CommunityDetection
         uint32_t edge_num = graph_->edge_num_;
         std::tr1::unordered_map<Community*, double> comm_stat_map;
         double old_modularity = pool->getModularity();
-        //printf("modularity: %f\n", old_modularity);
+        printf("modularity: %f\n", old_modularity);
+
         for (uint32_t idx=0; idx<iterations_; idx++)
         {
             printf("[Info][iteration: %u ]\n",idx);          
@@ -38,7 +39,8 @@ namespace CommunityDetection
                 Vertex * v =  (Vertex*)itr->second;
                 double degree = v->getDegree();
                 Community * ori_comm = pool->getCommunity(v->vid_);
-                pool->removeVertexFromCommunity(v, ori_comm);
+				
+                pool->removeVertexFromCommunity(v);
                 
                 Community * best_comm = ori_comm;
                 double best_increase = 0.0;
@@ -48,8 +50,9 @@ namespace CommunityDetection
                 EdgeSet::iterator edge_itr = (v->adj_edges_).begin();
                 while(edge_itr != (v->adj_edges_).end())
                 {
-                    Edge * edge = (Edge*)*edge_itr;
-                    uint32_t vid = edge->getAdjVertex(v->vid_);
+                    Edge * edge = (Edge*)(*edge_itr);
+					//edge->printEdgeMsg();
+                    VertexId vid = edge->getAdjVertex(v->vid_);
                     Community * adj_comm = pool->getCommunity(vid);
                    
                     if (comm_stat_map.find(adj_comm) != comm_stat_map.end()) 
@@ -64,7 +67,7 @@ namespace CommunityDetection
                     edge_itr ++;
                 }
 
-                unordered_map<Community*, double>::iterator adj_com_itr = comm_stat_map.begin();
+				std::tr1::unordered_map<Community*, double>::iterator adj_com_itr = comm_stat_map.begin();
                 while (adj_com_itr != comm_stat_map.end())
                 {
                     double mc = adj_com_itr->second;
@@ -72,6 +75,7 @@ namespace CommunityDetection
 
                     uint32_t total_degree = com->total_degree_;
                     uint32_t m2 = 2 * edge_num;
+					//printf("test point 5\n");
                     
                     double increase = mc - gamma_ * ((double)(total_degree * degree)) /(double)m2;
                     if (increase > best_increase)
@@ -90,12 +94,13 @@ namespace CommunityDetection
             double new_modularity = pool->getModularity();
             if(new_modularity - old_modularity < delta_)
             {
-                break;
+             //   break;
             }
             else
             {
                 old_modularity = new_modularity;
             }
+			
         }
 
         return pool->getCommunitySet(communities);

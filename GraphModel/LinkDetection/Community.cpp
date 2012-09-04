@@ -1,4 +1,5 @@
 #include "Community.h"
+#include <iostream>
 
 namespace CommunityDetection
 {
@@ -79,4 +80,15 @@ namespace CommunityDetection
         }
     }
  
+	void Community::printCommunityMsg() const
+	{
+		printf("Community vertexs\n");
+	    VertexSet::const_iterator itr;
+		for (itr=nodes_.begin();itr!=nodes_.end();itr++)
+		{
+			Vertex * v = *itr;
+			std::cout << v->vid_ << "\t";
+		}
+		std::cout << "\n";
+	}
 }

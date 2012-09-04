@@ -20,7 +20,7 @@ namespace GraphModel
     {
         if (VertexIdComp(edge.front_vertex_id_, front_vertex_id_) == 0)
             return VertexIdComp(edge.tail_vertex_id_, tail_vertex_id_) == 0;
-        else if (VertexIdComp(edge.front_vertex_id_,tail_vertex_id_))
+        else if (VertexIdComp(edge.front_vertex_id_,tail_vertex_id_) == 0)
             return VertexIdComp(edge.tail_vertex_id_, front_vertex_id_) == 0;
         else
             return false;
@@ -79,6 +79,12 @@ namespace GraphModel
 	{
 	    //fprintf(stderr, "[Info][vid: %u, edge size: %u]", vid_, adj_edges_.size());	
 		std::cout << "[Info][vid: " << vid_ << ", edge size: " << adj_edges_.size() << "]\n";
+		EdgeSet::const_iterator itr = adj_edges_.begin();
+		while(itr != adj_edges_.end())
+		{
+			(*itr)->printEdgeMsg();
+			itr++;
+		}
 	}
 
 
@@ -185,9 +191,9 @@ namespace GraphModel
     {
         IdToVertexMap::const_iterator itr = vertex_map_.find(vertex->vid_);
         if(itr == vertex_map_.end())
-            return true;
-        else
             return false;
+        else
+            return true;
     }
 
     void BaseGraph::printGraphMsg() const {}
