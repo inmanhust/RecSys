@@ -1,5 +1,6 @@
 #include "Modularity.h"
 #include <math.h>
+#include <iostream>
 
 namespace CommunityDetection
 {
@@ -16,9 +17,10 @@ namespace CommunityDetection
 		    uint32_t in_degree = community->in_degree_;
 		    uint32_t total_degree = community->total_degree_;
 
-		    Q += ((double)in_degree)/(2*(double)edge_num) + pow((double)total_degree/((double)(2*edge_num)), 2);
+		    Q += ((double)in_degree)/(2*(double)edge_num) - pow((double)total_degree/((double)(2*edge_num)), 2);
             //printf("Q: %f, indegree: %u, total: %u, edgenum: %u\n",Q,in_degree, total_degree, edge_num);
 	    }
+			std::cout << "Q: \t" << Q << "\n";
 
 	    return Q;
     }

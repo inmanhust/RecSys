@@ -23,14 +23,7 @@ int main()
     while (itr != communities.end())
     {
             Community * community = itr->second;
-            VertexSet& nodes = community->nodes_;
-            VertexSet::iterator node_itr;
-            printf("Community id: \t%u, nodes:\n",community->community_id_);
-            for (node_itr=nodes.begin();node_itr!=nodes.end(); node_itr++)
-            {
-                printf("%u\t",(*node_itr)->vid_);
-            }
-            printf("\n");
+			community->printCommunityMsg();
             itr ++;
     }
 

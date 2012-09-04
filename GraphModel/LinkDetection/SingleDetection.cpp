@@ -94,7 +94,7 @@ namespace CommunityDetection
             double new_modularity = pool->getModularity();
             if(new_modularity - old_modularity < delta_)
             {
-             //   break;
+                break;
             }
             else
             {
