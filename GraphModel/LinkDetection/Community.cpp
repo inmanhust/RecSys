@@ -12,7 +12,7 @@ namespace CommunityDetection
         total_degree_ = vertex->getDegree();
     }
 
-	Community::~Community() {}
+    Community::~Community() {}
 
     uint32_t Community::getInLinkNum(const Vertex * vertex) const
     {
@@ -80,15 +80,15 @@ namespace CommunityDetection
         }
     }
  
-	void Community::printCommunityMsg() const
-	{
-		printf("Community vertexs\n");
-	    VertexSet::const_iterator itr;
-		for (itr=nodes_.begin();itr!=nodes_.end();itr++)
-		{
-			Vertex * v = *itr;
-			std::cout << v->vid_ << "\t";
-		}
-		std::cout << "\n";
-	}
+    void Community::printCommunityMsg() const
+    {
+        printf("Community vertexs\n");
+        VertexSet::const_iterator itr;
+        for (itr=nodes_.begin();itr!=nodes_.end();itr++)
+        {	
+            Vertex * v = *itr;
+            std::cout << v->vid_ << "\t";
+        }
+        std::cout << "\n";
+    }
 }

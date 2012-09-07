@@ -3,23 +3,20 @@
 #include <fstream>
 #include <iostream>
 
-using std::string;
-using std::vector;
-
 namespace GraphModel
 {
     Edge::Edge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id):BaseEdge(front_vertex_id, tail_vertex_id) {}
 
-	Vertex::Vertex(const VertexId& vid):BaseVertex(vid) {}
+    Vertex::Vertex(const VertexId& vid):BaseVertex(vid) {}
 
-	Graph::Graph():BaseGraph() {}
-   
+
+    Graph::Graph():BaseGraph() {}
  
     bool Graph::addEdge(const VertexId& front_vertex_id, const VertexId& tail_vertex_id)
     {
         if (VertexIdComp(front_vertex_id, tail_vertex_id) == 0)
         {
-//		    std::cout << "[Error][Same VertexId: " << front_vertex_id << "]\n";
+//            std::cout << "[Error][Same VertexId: " << front_vertex_id << "]\n";
 //            fprintf(stderr, "[Error][Same VertexId]\n");
             return false;
         }

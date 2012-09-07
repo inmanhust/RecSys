@@ -1,5 +1,4 @@
 #include "SingleDetection.h"
-using std::tr1::unordered_map;
 
 namespace CommunityDetection
 {
@@ -51,7 +50,7 @@ namespace CommunityDetection
                 while(edge_itr != (v->adj_edges_).end())
                 {
                     Edge * edge = (Edge*)(*edge_itr);
-					//edge->printEdgeMsg();
+                    //edge->printEdgeMsg();
                     VertexId vid = edge->getAdjVertex(v->vid_);
                     Community * adj_comm = pool->getCommunity(vid);
                    
@@ -67,7 +66,7 @@ namespace CommunityDetection
                     edge_itr ++;
                 }
 
-				std::tr1::unordered_map<Community*, double>::iterator adj_com_itr = comm_stat_map.begin();
+                std::tr1::unordered_map<Community*, double>::iterator adj_com_itr = comm_stat_map.begin();
                 while (adj_com_itr != comm_stat_map.end())
                 {
                     double mc = adj_com_itr->second;
@@ -75,7 +74,7 @@ namespace CommunityDetection
 
                     uint32_t total_degree = com->total_degree_;
                     uint32_t m2 = 2 * edge_num;
-					//printf("test point 5\n");
+                    //printf("test point 5\n");
                     
                     double increase = mc - gamma_ * ((double)(total_degree * degree)) /(double)m2;
                     if (increase > best_increase)

@@ -11,7 +11,7 @@
 namespace GraphModel
 {
     #ifdef STRING_VERTEXID
-    typedef string VertexId;
+    typedef std::string VertexId;
     const VertexId ERROR_VERTEX_ID = "ADJ_VERTEX_ERROR";
     #else
     typedef uint32_t VertexId;

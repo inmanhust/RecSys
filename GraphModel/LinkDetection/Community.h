@@ -7,7 +7,7 @@ using namespace GraphModel;
 
 namespace CommunityDetection
 {
-	typedef std::tr1::unordered_set<Vertex*> VertexSet;
+    typedef std::tr1::unordered_set<Vertex*> VertexSet;
     class Community
     {
     public:

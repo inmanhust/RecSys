@@ -5,7 +5,7 @@
 
 namespace CommunityDetection
 {
-	typedef std::tr1::unordered_map<VertexId, Community*> CommunityIndex;
+    typedef std::tr1::unordered_map<VertexId, Community*> CommunityIndex;
     typedef std::tr1::unordered_set<Community*> CommunitySet;
 
     class CommunityPool

@@ -96,8 +96,8 @@ namespace GraphModel
     {
         if (VertexIdComp(front_vertex_id, tail_vertex_id) == 0)
         {
-		    std::cout << "[Error][Same VertexId: " << front_vertex_id << "]\n";
-        //    fprintf(stderr, "[Error][Same VertexId]\n");
+	    std::cout << "[Error][Same VertexId: " << front_vertex_id << "]\n";
+//            fprintf(stderr, "[Error][Same VertexId]\n");
             return false;
         }
 
